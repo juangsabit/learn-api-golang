@@ -13,18 +13,19 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/", rootHandler)
-	router.GET("/hello", helloHandler)
+	v1 := router.Group("/v1")
 
-	router.GET("/book/:id", bookHandler)
+	v1.GET("/", rootHandler)
+	v1.GET("/hello", helloHandler)
+	v1.GET("/book/:id", bookHandler)
 	// url value from parameter
 	// ex : localhost:8888/book/10
 
-	router.GET("/query", queryHandler)
+	v1.GET("/query", queryHandler)
 	// url value from query
 	// ex : localhost:8888/query?title=bumi&price=100
 
-	router.POST("/book", postBookHandler)
+	v1.POST("/book", postBookHandler)
 
 	router.Run(":8888") // default port 8080
 
