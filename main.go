@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"pustaka-api/book"
 	"pustaka-api/handler"
@@ -23,31 +22,15 @@ func main() {
 	db.AutoMigrate(&book.Book{})
 
 	bookRepository := book.NewRepository(db)
-
-	// get All Books
-	getAllBooks, err := bookRepository.FindAll()
-
-	for _, book := range getAllBooks {
-		fmt.Println("===============================")
-		fmt.Println("ID :", book.ID)
-		fmt.Println("Title :", book.Title)
-		fmt.Println("Description :", book.Description)
-		fmt.Println("===============================")
-	}
-
-	// get By ID
-	getBooksByID, err := bookRepository.FindByID(2)
-	fmt.Println("Title :", getBooksByID.Title)
+	bookService := book.NewService(bookRepository)
 
 	// Create book
-	book := book.Book{
-		Title:       "Si Buta dari gua hantu",
-		Description: "Buku legenda",
-		Rating:      3,
-		Price:       15,
-		Discount:    5,
+	bookRequest := book.BookRequest{
+		Title: "Malam minggu miko",
+		Price: 23,
 	}
-	bookRepository.CreateBook(book)
+
+	bookService.CreateBook(bookRequest)
 
 	router := gin.Default()
 
@@ -69,4 +52,5 @@ func main() {
 	router.Run(":8888")
 	// router.Run() // default port 8080
 
+	// workflow : main -> handler -> service -> repository -> db -> mysql
 }

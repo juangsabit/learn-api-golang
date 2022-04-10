@@ -3,8 +3,8 @@ package book
 import "gorm.io/gorm"
 
 type Repository interface {
-	findAll() ([]Book, error)
-	findByID(ID int) (Book, error)
+	FindAll() ([]Book, error)
+	FindByID(ID int) (Book, error)
 	CreateBook(book Book) (Book, error)
 }
 
