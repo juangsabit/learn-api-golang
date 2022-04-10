@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"pustaka-api/book"
 	"pustaka-api/handler"
@@ -21,69 +22,32 @@ func main() {
 	// Crete table using migration
 	db.AutoMigrate(&book.Book{})
 
-	// Create
-	// book := book.Book{}
-	// book.Title = "Atomic habits"
-	// book.Description = "Buku self development"
-	// book.Discount = 0
-	// book.Price = 10
-	// book.Rating = 3
+	bookRepository := book.NewRepository(db)
 
-	// err = db.Create(&book).Error
-	// if err != nil {
-	// 	fmt.Println("=======================")
-	// 	fmt.Println("Error creating new book")
-	// 	fmt.Println("=======================")
-	// }
+	// get All Books
+	getAllBooks, err := bookRepository.FindAll()
 
-	// Read
-	// var books []book.Book
-	// // check documentation https://gorm.io/docs/query.html
-	// err = db.Debug().Where("rating > ?", 1).Find(&books).Error // Debug() = get query sql;
-	// if err != nil {
-	// 	fmt.Println("=======================")
-	// 	fmt.Println(" Error get data ")
-	// 	fmt.Println("=======================")
-	// }
+	for _, book := range getAllBooks {
+		fmt.Println("===============================")
+		fmt.Println("ID :", book.ID)
+		fmt.Println("Title :", book.Title)
+		fmt.Println("Description :", book.Description)
+		fmt.Println("===============================")
+	}
 
-	// for _, book := range books {
-	// 	fmt.Println("Title :", book.Title)
-	// 	fmt.Println("Description :", book.Description)
-	// 	fmt.Println("Book object %v", book)
-	// }
+	// get By ID
+	getBooksByID, err := bookRepository.FindByID(2)
+	fmt.Println("Title :", getBooksByID.Title)
 
-	// Update
-	// var book book.Book
-	// err = db.Debug().Where("id = ?", 1).Take(&book).Error // Debug() = get query sql;
-	// if err != nil {
-	// 	fmt.Println("================")
-	// 	fmt.Println(" Error get data ")
-	// 	fmt.Println("================")
-	// }
-
-	// book.Title = "Laskar Pelangi"
-	// err = db.Debug().Save(&book).Error
-	// if err != nil {
-	// 	fmt.Println("=================")
-	// 	fmt.Println(" Error save data ")
-	// 	fmt.Println("=================")
-	// }
-
-	// Delete
-	// var book book.Book
-	// err = db.Debug().Where("id = ?", 1).Take(&book).Error // Debug() = get query sql;
-	// if err != nil {
-	// 	fmt.Println("================")
-	// 	fmt.Println(" Error get data ")
-	// 	fmt.Println("================")
-	// }
-
-	// err = db.Debug().Delete(&book).Error // db.Delete() = update field deleted_at
-	// if err != nil {
-	// 	fmt.Println("=================")
-	// 	fmt.Println(" Error save data ")
-	// 	fmt.Println("=================")
-	// }
+	// Create book
+	book := book.Book{
+		Title:       "Si Buta dari gua hantu",
+		Description: "Buku legenda",
+		Rating:      3,
+		Price:       15,
+		Discount:    5,
+	}
+	bookRepository.CreateBook(book)
 
 	router := gin.Default()
 
