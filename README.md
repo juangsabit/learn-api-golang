@@ -11,7 +11,7 @@ the api use different HTTP methods ( GET, POST, PUT, PATCH, and DELETE ) <br>
 to make this work correctly you need to :
 * you need to clone gin and gorm <br/>
 * you need to have mysql installed in your machine ( install xampp if you don't have ) <br/>
-* create a new empty database and call it 'CRUD' <br/><br/>
+* create a new empty database and call it 'api-go' <br/><br/>
 
 to add the gin framwork (copy and past this into ur terminal)
 ```Go
