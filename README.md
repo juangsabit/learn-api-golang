@@ -6,7 +6,7 @@ this is build on top off gin framwork  and GORM  library <br/>
 [link to GORM!](https://github.com/go-gorm/gorm/) <br/>
 [link to gin!](https://github.com/gin-gonic/gin)  <br/>
 
-the api use different HTTP methods ( GET, POST, PUT, PATCH, and DELETE ) <br>
+the api use different HTTP methods ( GET, POST, PUT, and DELETE ) <br>
 
 to make this work correctly you need to :
 * you need to clone gin and gorm <br/>
@@ -24,11 +24,11 @@ go get "https://github.com/go-gorm/gorm"
 ______________________________________________________________________________________
 
 Listening and serving HTTP on :8888
-* `SINGLE GET   /v1/api/book/:id`             --> main.getById
-* ` GET ALL     /v1/api/books`                --> main.getAll
-* ` POST        /v1api/book`                  --> main.add
-* ` PUT         /v1api/book/:id`              --> main.update
-* ` DELETE      /v1api/book/:id`              --> main.delete
+* ` GET         /v1/api/book/:id`             --> get single book
+* ` GET         /v1/api/books`                --> get all books
+* ` POST        /v1api/book`                  --> create new book
+* ` PUT         /v1api/book/:id`              --> update book
+* ` DELETE      /v1api/book/:id`              --> delete book
 
 ______________________________________________________________________________________
 
